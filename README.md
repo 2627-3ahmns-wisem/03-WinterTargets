@@ -22,6 +22,7 @@ Das vorhandene Spawning, der Score und der Sieg bei zehn Treffern sind **Ausgang
 3. **Punkte:** Jeder Treffer erhöht den Score um 1. Der neue Wert wird sofort in der Punkteanzeige (UI-Text) angezeigt.
 4. **Spielende:** Bei 10 Punkten ist das Spiel gewonnen. Das Sieg-Bild wird eingeblendet und es entstehen keine neuen Ziele mehr.
 
+
 ### Methoden
 - **`Start()`** (GameManager): Startet mit `InvokeRepeating` das wiederholte Aufrufen von `Spawn()`, zum ersten Mal nach 1 s, danach jede Sekunde.
 - **`Start()`** (Target): Sucht den GameManager in der Szene, merkt ihn sich und zerstört das Ziel automatisch nach 2 s.
@@ -29,10 +30,12 @@ Das vorhandene Spawning, der Score und der Sieg bei zehn Treffern sind **Ausgang
 - **`Spawn()`** (GameManager): Erzeugt eine Kopie des Ziel-Prefabs als Kind von `parentOfTargets` und setzt sie auf eine zufällige `localPosition`.
 - **`OnMouseDown()`** (Target): Wird beim Anklicken des Ziels aufgerufen, ruft `IncrementScore()` im GameManager auf und zerstört das Ziel.
 
+
 ### Bereits implementiert
 - **Zufallsposition:** `Random.Range` wählt x zwischen −365 und 365 und y zwischen −202 und 202. Es wird `localPosition` benutzt, weil das Ziel ein Kind von `parentOfTargets` ist.
 - **Punkteanzeige:** Ein `Text`-Feld (`scoreText`) zeigt den aktuellen Score und wird in `IncrementScore()` bei jedem Treffer aktualisiert.
 - **Siegbedingung:** Ab `score >= 10` wird `win = true` gesetzt, das Sieg-Bild (`winSprite`) eingeblendet und das Spawnen gestoppt.
+
 
 ### Geplante Änderungen
 - **Sound nur bei Treffer:** Der Schuss-Sound soll nicht bei jedem Klick kommen, sondern passend zum Treffer bzw. Fehlschuss.
