@@ -22,6 +22,12 @@ Das vorhandene Spawning, der Score und der Sieg bei zehn Treffern sind **Ausgang
 3. **Punkte:** Jeder Treffer erhöht den Score um 1. Der neue Wert wird sofort in der Punkteanzeige (UI-Text) angezeigt.
 4. **Spielende:** Bei 10 Punkten ist das Spiel gewonnen. Das Sieg-Bild wird eingeblendet und es entstehen keine neuen Ziele mehr.
 
+### Methoden
+- **`Start()`** (GameManager): Startet mit `InvokeRepeating` das wiederholte Aufrufen von `Spawn()`, zum ersten Mal nach 1 s, danach jede Sekunde.
+- **`Start()`** (Target): Sucht den GameManager in der Szene, merkt ihn sich und zerstört das Ziel automatisch nach 2 s.
+- **`Update()`** (GameManager): Läuft jeden Frame. Nach dem Sieg stoppt es das Spawnen (`CancelInvoke`), und bei jedem Linksklick spielt es den Schuss-Sound ab.
+- **`Spawn()`** (GameManager): Erzeugt eine Kopie des Ziel-Prefabs als Kind von `parentOfTargets` und setzt sie auf eine zufällige `localPosition`.
+- **`OnMouseDown()`** (Target): Wird beim Anklicken des Ziels aufgerufen, ruft `IncrementScore()` im GameManager auf und zerstört das Ziel.
 
 ### Bereits implementiert
 - **Zufallsposition:** `Random.Range` wählt x zwischen −365 und 365 und y zwischen −202 und 202. Es wird `localPosition` benutzt, weil das Ziel ein Kind von `parentOfTargets` ist.
@@ -34,11 +40,3 @@ Das vorhandene Spawning, der Score und der Sieg bei zehn Treffern sind **Ausgang
 - **Fehlschüsse bestrafen:** Daneben klicken oder ein Ziel verpassen soll Punkte kosten.
 - **Einstellbare Werte:** Spawn-Intervall, Lebensdauer der Ziele und Siegpunktzahl sollen im Inspector einstellbar sein statt fest im Code.
 - **Timer:** Eine Zeitbegrenzung, damit man auch verlieren kann.
-
-
-### Methoden
-- **`Start()`** (GameManager): Startet mit `InvokeRepeating` das wiederholte Aufrufen von `Spawn()`, zum ersten Mal nach 1 s, danach jede Sekunde.
-- **`Start()`** (Target): Sucht den GameManager in der Szene, merkt ihn sich und zerstört das Ziel automatisch nach 2 s.
-- **`Update()`** (GameManager): Läuft jeden Frame. Nach dem Sieg stoppt es das Spawnen (`CancelInvoke`), und bei jedem Linksklick spielt es den Schuss-Sound ab.
-- **`Spawn()`** (GameManager): Erzeugt eine Kopie des Ziel-Prefabs als Kind von `parentOfTargets` und setzt sie auf eine zufällige `localPosition`.
-- **`OnMouseDown()`** (Target): Wird beim Anklicken des Ziels aufgerufen, ruft `IncrementScore()` im GameManager auf und zerstört das Ziel.
