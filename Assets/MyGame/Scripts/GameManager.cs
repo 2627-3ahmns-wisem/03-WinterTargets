@@ -3,8 +3,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //different target types (snowman, present, ice block), one is chosen randomly
-    public GameObject[] targets;
+    //the three target types (prefabs), set in the Inspector
+    public GameObject snowmanPrefab;
+    public GameObject iceBlockPrefab;
+    public GameObject presentPrefab;
+
+    //spawn probabilities in percent (must add up to 100)
+    public int snowmanChance = 60;   // 60 % -> common
+    public int iceBlockChance = 30;  // 30 % -> less common
+    public int presentChance = 10;   // 10 % -> rare
     public GameObject parentOfTargets;
     public GameObject winSprite;
     public Text scoreText;
@@ -17,6 +24,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //check that the probabilities add up to 100 %
+        if (snowmanChance + iceBlockChance + presentChance != 100)
+        {
+            Debug.LogWarning("Spawn probabilities do not add up to 100 %!");
+        }
+
         InvokeRepeating("Spawn",1f,1f);
     }
 
@@ -45,11 +58,30 @@ public class GameManager : MonoBehaviour
 
         Vector2 random2DPosition = new Vector2(randomX, randomY);
 
-        //choose a random target type
-        GameObject randomTarget = targets[Random.Range(0, targets.Length)];
-
-        GameObject newTarget = Instantiate(randomTarget, parentOfTargets.transform);
+        GameObject newTarget = Instantiate(ChooseTargetType(), parentOfTargets.transform);
         newTarget.transform.localPosition = random2DPosition;
+    }
+
+    //chooses a target type by chance: a random number from 0 to 99 falls into one of three ranges
+    //  0 - 59 -> snowman   (60 %)
+    // 60 - 89 -> ice block (30 %)
+    // 90 - 99 -> present   (10 %)
+    private GameObject ChooseTargetType()
+    {
+        int randomValue = Random.Range(0, 100); // 0 to 99, 100 is excluded
+
+        if (randomValue < snowmanChance)
+        {
+            return snowmanPrefab;
+        }
+        else if (randomValue < snowmanChance + iceBlockChance)
+        {
+            return iceBlockPrefab;
+        }
+        else
+        {
+            return presentPrefab;
+        }
     }
 
     //is called in the class Target with the points of the hit target (can be negative)

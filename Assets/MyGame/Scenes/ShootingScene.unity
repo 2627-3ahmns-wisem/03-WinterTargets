@@ -752,10 +752,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34cbe36b907671418aeb6cb6c5d45b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 4591863265193547165, guid: 467ca2b106a1450b86fe9039fc6e665e, type: 3}
-  - {fileID: 4591863265193547165, guid: 2c477fad4a784ea2b797c62ad837f018, type: 3}
-  - {fileID: 4591863265193547165, guid: f90c0ec902e24ab586052b8dc3741817, type: 3}
+  snowmanPrefab: {fileID: 4591863265193547165, guid: 467ca2b106a1450b86fe9039fc6e665e, type: 3}
+  iceBlockPrefab: {fileID: 4591863265193547165, guid: f90c0ec902e24ab586052b8dc3741817, type: 3}
+  presentPrefab: {fileID: 4591863265193547165, guid: 2c477fad4a784ea2b797c62ad837f018, type: 3}
+  snowmanChance: 60
+  iceBlockChance: 30
+  presentChance: 10
   parentOfTargets: {fileID: 958871934}
   winSprite: {fileID: 73667832}
   scoreText: {fileID: 821733796}
