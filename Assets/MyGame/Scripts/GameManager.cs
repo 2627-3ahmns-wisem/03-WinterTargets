@@ -3,11 +3,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject target;
+    //different target types (snowman, present, ice block), one is chosen randomly
+    public GameObject[] targets;
     public GameObject parentOfTargets;
     public GameObject winSprite;
     public Text scoreText;
-    
+
+    //score needed to win
+    public int winScore = 100;
+
     private int score = 0;
     private bool win = false;
 
@@ -18,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if the player hits 10 times, the player has won and the Spawn method will not called further. 
+        //if the player reaches winScore, the player has won and the Spawn method will not called further. 
         if(win)
         {
             CancelInvoke("Spawn");
@@ -41,19 +45,28 @@ public class GameManager : MonoBehaviour
 
         Vector2 random2DPosition = new Vector2(randomX, randomY);
 
-        GameObject newTarget = Instantiate(target, parentOfTargets.transform);
+        //choose a random target type
+        GameObject randomTarget = targets[Random.Range(0, targets.Length)];
+
+        GameObject newTarget = Instantiate(randomTarget, parentOfTargets.transform);
         newTarget.transform.localPosition = random2DPosition;
     }
 
-    //is called in the class Target
-    public void IncrementScore()
+    //is called in the class Target with the points of the hit target (can be negative)
+    public void IncrementScore(int points)
     {
-        score++;
+        //after winning the score does not change anymore
+        if (win)
+        {
+            return;
+        }
+
+        score += points;
         print(score);
 
         scoreText.text = score.ToString();
 
-        if (score >= 10)
+        if (score >= winScore)
         {
             win = true;
             winSprite.SetActive(true);
