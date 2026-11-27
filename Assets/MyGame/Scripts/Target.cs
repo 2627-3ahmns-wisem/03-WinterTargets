@@ -61,7 +61,8 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (wasHit)
+        //no points if the target was already hit or the round is over
+        if (wasHit || !gameManager.IsRunning())
         {
             return;
         }
