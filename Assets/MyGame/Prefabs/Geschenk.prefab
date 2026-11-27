@@ -115,3 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   points: 20
+  moveSpeed: 250
+  lifeTime: 3
+  maxX: 365
+  maxY: 202
